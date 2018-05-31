@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="251dp"
+            android:layout_height="42dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="169dp"
+            android:ems="10"
+            android:hint="用户名"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="67dp"
+            tools:layout_editor_absoluteY="185dp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="251dp"
+            android:layout_height="46dp"
+            android:layout_centerInParent="true"
+            android:ems="10"
+            android:hint="密码"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="67dp"
+            tools:layout_editor_absoluteY="244dp" />
+
+        <Button
+            android:id="@+id/loginBt"
+            android:layout_width="251dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="160dp"
+            android:background="#65ACA4"
+            android:text="登录"
+            android:textColor="#fff"
+            tools:layout_editor_absoluteX="67dp"
+            tools:layout_editor_absoluteY="335dp" />
+
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="38dp"
+            android:text="PAP"
+            android:textSize="40sp"
+            tools:layout_editor_absoluteX="150dp"
+            tools:layout_editor_absoluteY="77dp" />
+
+        <TextView
+            android:id="@+id/newRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/userName"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="120dp"
+            android:text="新用户注册" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,1 +1,2 @@
 include ':app'
+//project(':mvp').projectDir = new File("/Users/apple/Desktop/XDroidMvp")
