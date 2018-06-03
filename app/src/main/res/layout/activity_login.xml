@@ -9,17 +9,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@mipmap/background2"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="16dp">
 
         <EditText
-            android:id="@+id/userName"
+            android:id="@+id/account"
             android:layout_width="251dp"
             android:layout_height="42dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="169dp"
+            android:layout_marginTop="193dp"
             android:ems="10"
             android:hint="用户名"
             android:inputType="textPersonName"
@@ -43,7 +44,7 @@
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="160dp"
+            android:layout_marginBottom="182dp"
             android:background="#65ACA4"
             android:text="登录"
             android:textColor="#fff"
@@ -56,9 +57,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="76dp"
             android:text="PAP"
-            android:textSize="40sp"
+            android:textColor="#65ACA4"
+            android:textSize="48sp"
             tools:layout_editor_absoluteX="150dp"
             tools:layout_editor_absoluteY="77dp" />
 
@@ -66,9 +68,9 @@
             android:id="@+id/newRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/userName"
+            android:layout_alignEnd="@+id/account"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="120dp"
+            android:layout_marginBottom="145dp"
             android:text="新用户注册" />
 
     </RelativeLayout>

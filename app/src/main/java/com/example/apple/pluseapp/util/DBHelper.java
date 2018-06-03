@@ -17,12 +17,12 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE userInfo (\n" +
                 "  userName nvarchar(10) PRIMARY KEY NOT NULL,\n" +
                 "  age integer(3) NOT NULL,\n" +
-                "  gender integer(1) NOT NULL,\n" +
+                "  gender char(3) NOT NULL,\n" +
                 "  password varchar(15) NOT NULL,\n" +
-                "  rank integer(1),\n" +
+                "  rank varchar(6),\n" +
                 "  detail nvarchar(128)\n" +
                 ")");
-        sqLiteDatabase.execSQL("INSERT INTO userInfo values( 'ml',19,1,123,2,'非常健康,超过80%同龄人')");
+        sqLiteDatabase.execSQL("INSERT INTO userInfo values( 'ml',19,'女',123,'健康','非常健康,超过80%同龄人')");
     }
 
     @Override

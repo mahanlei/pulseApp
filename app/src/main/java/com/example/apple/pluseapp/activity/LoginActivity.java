@@ -10,10 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.apple.pluseapp.Dao.UserDao;
 import com.example.apple.pluseapp.R;
 import com.example.apple.pluseapp.util.DBHelper;
 import com.example.apple.pluseapp.util.Message;
@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText username;
     private EditText password;
     private Context loginContext;
-
+    UserDao userDao=new UserDao();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +34,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             actionBar.hide();
         }
         loginContext = LoginActivity.this;
-        username =  findViewById(R.id.userName);
+        username =  findViewById(R.id.account);
         password =  findViewById(R.id.password);
         loginBt = findViewById(R.id.loginBt);
         loginBt.setOnClickListener(this);
         toRegister = findViewById(R.id.newRegister);
         toRegister.setOnClickListener(this);
+
     }
 
     @Override
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.loginBt:
 //                Toast.makeText(getApplicationContext(), "密码错误",
 //                        Toast.LENGTH_SHORT).show();
-if(isExist(username.getText().toString()).equals(Message.EXIST)){
+if(userDao.isExist(loginContext,username.getText().toString()).equals(Message.EXIST)){
 if(isRight(username.getText().toString(),password.getText().toString()).equals(Message.RIGHT)){
     //进行跳转到主页
 Intent intent=new Intent(LoginActivity.this,HomePageActivity.class);
@@ -67,23 +68,24 @@ startActivity(intent);
 }
                 break;
             case R.id.newRegister:
-
+                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
                 break;
         }
     }
 
-    public Message isExist(String userName) {
-        SQLiteDatabase db= new DBHelper(loginContext,"mu.db",null,1).getWritableDatabase();
-
-    Cursor cursor=db.rawQuery("SELECT * FROM userInfo WHERE userName = ?",
-            new String[]{userName});
-    if(cursor.moveToFirst())
-    {
-        return Message.EXIST;
-    }
-    cursor.close();
-    return Message.NOT_EXIST;
-}
+//    public Message isExist(String userName) {
+//        SQLiteDatabase db= new DBHelper(loginContext,"mu.db",null,1).getWritableDatabase();
+//
+//    Cursor cursor=db.rawQuery("SELECT * FROM userInfo WHERE userName = ?",
+//            new String[]{userName});
+//    if(cursor.moveToFirst())
+//    {
+//        return Message.EXIST;
+//    }
+//    cursor.close();
+//    return Message.NOT_EXIST;
+//}
     public Message isRight(String userName, String password) {
         SQLiteDatabase db= new DBHelper(loginContext,"mu.db",null,1).getWritableDatabase();
 

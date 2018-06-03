@@ -3,7 +3,9 @@ package com.example.apple.pluseapp.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Show extends AppCompatActivity {
+import com.example.apple.pluseapp.R;
+
+public class ShowActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
