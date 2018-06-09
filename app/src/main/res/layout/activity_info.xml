@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="150dp"
+            android:layout_marginEnd="154dp"
             android:layout_marginTop="119dp"
             android:text="用户名"
             tools:layout_editor_absoluteX="163dp"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="105dp"
+            android:layout_marginStart="96dp"
             android:layout_marginTop="212dp"
             android:text="健康报告" />
 
@@ -61,8 +61,8 @@
             android:layout_width="204dp"
             android:layout_height="47dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/textView10"
-            android:layout_marginBottom="8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="65dp"
             android:background="#EB7A77"
             android:text="注销"
             android:textColor="#fff" />
@@ -74,16 +74,17 @@
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/healthRank"
             android:layout_marginBottom="168dp"
-            android:text="健康报告待评测" />
+            android:hint="健康报告待测" />
 
         <TextView
             android:id="@+id/healthRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="215dp"
-            android:layout_toStartOf="@+id/userAge"
-            android:text="健康等级待评测" />
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="221dp"
+            android:layout_marginStart="51dp"
+            android:hint="健康等级待测" />
 
         <TextView
             android:id="@+id/userGender"
