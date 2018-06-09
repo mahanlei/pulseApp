@@ -1,6 +1,7 @@
 package com.example.apple.pluseapp.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -38,7 +39,11 @@ startButton.setOnClickListener(this);
     public boolean onOptionsItemSelected(MenuItem item) {
                  switch (item.getItemId()) {
                      case R.id.user:
-                         Toast.makeText(this, "用户信息", Toast.LENGTH_SHORT).show();
+                         Intent intent=new Intent(HomePageActivity.this,InfoActivity.class);
+                         Intent intent1 = getIntent();
+                         String nameString = intent1.getStringExtra("userName");
+                         intent.putExtra("userName",nameString);
+                         startActivity(intent);
                             break;
                      case R.id.cloud:
                              Toast.makeText(this, "云平台大数据", Toast.LENGTH_SHORT).show();
@@ -51,6 +56,7 @@ startButton.setOnClickListener(this);
              }
     @Override
     public void onClick(View view) {
-
+        Intent intent=new Intent(HomePageActivity.this,ShowActivity.class);
+        startActivity(intent);
     }
 }

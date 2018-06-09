@@ -24,7 +24,10 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:label="PAP" />
-        <activity android:name=".activity.ShowActivity"></activity>
+        <activity
+            android:name=".activity.ShowActivity"
+            android:label="PAP" />
+        <activity android:name=".activity.InfoActivity"></activity>
     </application>
 
 </manifest>

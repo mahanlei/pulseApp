@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.InfoActivity">
+
+    <RelativeLayout
+        android:layout_width="378dp"
+        android:layout_height="504dp"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="4dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="97dp"
+            android:layout_height="102dp"
+            android:layout_toEndOf="@+id/textView10"
+            app:srcCompat="@mipmap/head"
+            tools:layout_editor_absoluteX="125dp"
+            tools:layout_editor_absoluteY="35dp" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="150dp"
+            android:layout_marginTop="119dp"
+            android:text="用户名"
+            tools:layout_editor_absoluteX="163dp"
+            tools:layout_editor_absoluteY="160dp" />
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="38dp"
+            android:layout_height="59dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="186dp"
+            app:srcCompat="@mipmap/reporticon"
+            tools:layout_editor_absoluteX="65dp"
+            tools:layout_editor_absoluteY="270dp" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="105dp"
+            android:layout_marginTop="212dp"
+            android:text="健康报告" />
+
+        <Button
+            android:id="@+id/logoutBt"
+            android:layout_width="204dp"
+            android:layout_height="47dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textView10"
+            android:layout_marginBottom="8dp"
+            android:background="#EB7A77"
+            android:text="注销"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/heathReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/healthRank"
+            android:layout_marginBottom="168dp"
+            android:text="健康报告待评测" />
+
+        <TextView
+            android:id="@+id/healthRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="215dp"
+            android:layout_toStartOf="@+id/userAge"
+            android:text="健康等级待评测" />
+
+        <TextView
+            android:id="@+id/userGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/userAge"
+            android:layout_marginEnd="118dp"
+            android:text="男" />
+
+        <TextView
+            android:id="@+id/userAge"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="177dp"
+            android:text="30岁" />
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
