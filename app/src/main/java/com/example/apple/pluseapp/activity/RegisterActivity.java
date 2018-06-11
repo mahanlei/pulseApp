@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +24,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 private Button confirmBt;
 private EditText account;
 private EditText age;
+private RadioGroup radioGroup;
 private RadioButton radioButtonMale;
 private  RadioButton radioButtonFemale;
 private EditText password;
 private EditText checkPwd;
 private Context registerContext;
+public String genderString;
     UserDao userDao=new UserDao();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,16 @@ private Context registerContext;
         checkPwd=findViewById(R.id.checkPwd);
         account=findViewById(R.id.account);
         confirmBt.setOnClickListener(this);
-
+        radioGroup=findViewById(R.id.radioGroup);
+radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        RadioButton radbtn = (RadioButton) findViewById(i);
+        genderString=radbtn.getText().toString();
     }
+});
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -62,7 +73,7 @@ Message message=userDao.isExist(registerContext,account.getText().toString());
 if(message.equals(Message.EXIST)){
     Toast.makeText(getApplicationContext(), "用户名已存在", Toast.LENGTH_SHORT).show();
 }else{
-   if( doRegister(account.getText().toString(),Integer.valueOf(age.getText().toString()),"nv",password.getText().toString()).equals(Message.REGISTER_SUCCESS));
+   if( doRegister(account.getText().toString(),Integer.valueOf(age.getText().toString()),genderString,password.getText().toString()).equals(Message.REGISTER_SUCCESS));
     Toast.makeText(getApplicationContext(), "注册成功，前往登录", Toast.LENGTH_SHORT).show();
     Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
     startActivity(intent);

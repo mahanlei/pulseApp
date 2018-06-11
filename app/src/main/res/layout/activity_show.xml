@@ -15,22 +15,22 @@
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
-            android:layout_width="323dp"
-            android:layout_height="294dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="54dp"></com.github.mikephil.charting.charts.LineChart>
+            android:layout_width="400dp"
+            android:layout_height="297dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginLeft="40dp"></com.github.mikephil.charting.charts.LineChart>
 
-        <Button
-            android:id="@+id/connBt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="51dp"
-            android:background="#65ACA4"
-            android:text="连接"
-            android:textColor="#fff" />
+        <!--<Button-->
+            <!--android:id="@+id/connBt"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_marginBottom="18dp"-->
+            <!--android:layout_marginEnd="129dp"-->
+            <!--android:background="#65ACA4"-->
+            <!--android:text="连接"-->
+            <!--android:textColor="#fff" />-->
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

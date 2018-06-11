@@ -96,11 +96,13 @@
             android:textSize="15sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="146dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView4"
             android:layout_alignStart="@+id/account"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_alignLeft="@+id/account">
 
             <RadioButton
                 android:id="@+id/male"
