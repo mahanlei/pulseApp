@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.apple.pluseapp.R;
 import com.example.apple.pluseapp.util.DeviceListAdapter;
+import com.example.apple.pluseapp.util.MyDataSet;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
@@ -44,6 +45,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class ShowActivity extends AppCompatActivity implements View.OnClickListener {
@@ -66,7 +69,8 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
     //线程类的实例
 //    private AcceptThread ac;
     ConnectedThread ct;
-    //线程类的实例
+    private int count = 0;
+    int index = 0;
 
     LineChart mLineChart;
     private List<float[]> allData = new ArrayList<>();
@@ -81,21 +85,8 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
 //显示边界
         mLineChart.setNoDataText("暂无数据");
         mLineChart.setDrawBorders(false);
-        //设置数据
-
-//        LineDataSet lineDataSet = new LineDataSet(entries, "脉搏波形");
-//        lineDataSet.setDrawCircles(false);//图表上的数据点是否用小圆圈表示
-//        LineData data = new LineData(lineDataSet);
-//
-//        mLineChart.setData(data);
-
 
     }
-
-    private int i = 0;
-    int index = 0;
-
-
     private LineDataSet createSet() {
 
         LineDataSet set = new LineDataSet(null, "脉搏波形");
@@ -142,15 +133,6 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
 //                    mLoadingDialog.dismiss();
                     showToast("搜索完成！");
                 } else if (action.equals(BluetoothDevice.ACTION_PAIRING_REQUEST)) {
-                    //配对请求的回调
-                /*BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                try {
-                    BlueToothUtils.getInstance().setPin(device, "0000"); // 手机和蓝牙采集器配对
-                    BlueToothUtils.getInstance().createBond(device);
-                    BlueToothUtils.getInstance().cancelPairingUserInput(device);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }*/
                 }
             }
         };
@@ -164,19 +146,6 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
         registerReceiver(receiver, filter);
         showListDialog();
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-//        List<Entry> entries = new ArrayList<>();
-//
-//        for (int i = 0; i < data.size(); i++) {
-//            entries.add(new Entry(data.get(i)[0], (float)data.get(i)[1]));
-//        }
-        //一个LineDataSet就是一条线
 
     }
 
@@ -254,43 +223,21 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
                     clientSocket.connect();
                     ct = new ConnectedThread(clientSocket);
                     ct.start();
-
-
+                    LineData data=new LineData();
+                    mLineChart.setData(data);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            addEntry();
+                        }
+                    }, 1000,1000);
                 }catch (Exception e) {
 
                 }
 
-                //绘制图表
-                LineData data=new LineData();
-                mLineChart.setData(data);
-                final Runnable runnable=new Runnable() {
-                    @Override
-                    public void run() {
-                        addEntry();
-                    }
-                };
-                Thread thread=new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        try {
-//                            readData();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-                        for(int i=0;i<allData.size();i++) {
-                            runOnUiThread(runnable);
 
-                            try {
-                                Thread.sleep(25);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
-                thread.start();
-            }
-        });
+    }
+});
         listDialog.show();
 
     }
@@ -301,69 +248,6 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
         super.onBackPressed();
     }
 
-    // 服务端，需要监听客户端的线程类
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            Toast.makeText(ShowActivity.this, String.valueOf(msg.obj),
-                    Toast.LENGTH_SHORT).show();
-            Log.i(TAG, msg.obj + ":服务端");
-            super.handleMessage(msg);
-        }
-    };
-
-    //// 线程服务类
-//private class AcceptThread extends Thread   {
-//    private BluetoothServerSocket serverSocket;
-//    private BluetoothSocket socket;
-//    // 输入 输出流
-//    private OutputStream os;
-//    private InputStream is;
-//
-//    public AcceptThread() {
-//        try {
-//            serverSocket = mBluetooth.listenUsingRfcommWithServiceRecord(NAME, MY_UUID);
-//        } catch (IOException e) {
-//            Log.e(TAG, e.getMessage());
-//        }
-//    }
-//
-//    @Override
-//    public void run() {
-//        // 截获客户端的蓝牙消息
-//        try {
-//            socket = serverSocket.accept(); // 如果阻塞了，就会一直停留在这里
-//            is = socket.getInputStream();
-//            os = socket.getOutputStream();
-//            // 不断接收请求,如果客户端没有发送的话还是会阻塞
-//                while (true) {
-//                    // 每次只发送128个字节
-//                    byte[] buffer = new byte[128];
-//                    // 读取
-//                    int count = is.read();
-//                    Log.i("数据数量", "count:" + count);
-//                    // 如果读取到了，我们就发送刚才的那个Toast
-//                    Message msg = new Message();
-//                    msg.obj = String.valueOf((char)count);   //new String(buffer, 0, count, "GBK");
-//                    Log.i(TAG, msg.obj + ":客户端");
-//                    handler.sendMessage(msg);
-//                }
-////            while (true) {
-////                synchronized (ShowActivity.this) {
-////                    byte[] tt = new byte[is.available()];
-////                    if (tt.length > 0) {
-////                        is.read(tt, 0, tt.length);
-////                        Message msg = new Message();
-////                        msg.obj = new String(tt, "GBK");
-////                        Log.e(TAG, msg.obj + ":客户端");
-////                        handler.sendMessage(msg);
-////                    }
-////                }
-////            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Log.e(TAG, e.getMessage());
-//        }
-//    }
     class ConnectedThread extends Thread {
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
@@ -374,8 +258,6 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
 
-            // Get the input and output streams, using temp objects because
-            // member streams are final
             try {
                 tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
@@ -390,19 +272,14 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
             byte[] buffer = new byte[1024];  // buffer store for the stream
             int bytes; // bytes returned from read()
 
-            // Keep listening to the InputStream until an exception occurs
             while (true) {
                 try {
-                    // Read from the InputStream
-//                bytes = mmInStream.read(buffer);
-                    // Send the obtained bytes to the UI activity
                     int i = 0;
                     while ((i = mmInStream.read(buffer)) != -1) {
                         String str = new String(buffer);
-                        Log.i("收到的数据", str.substring(0,4));
-                        saveData(Integer.valueOf(str.substring(0,4)));
+//                        Log.i("收到的数据", str.substring(0, 4));
+                        saveData(Integer.valueOf(str.substring(0, 4)));
                     }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -418,27 +295,6 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    public void readData() throws IOException {
-        //得到资源中的Raw数据流
-        try {
-            InputStream in = getResources().openRawResource(R.raw.scope_0);
-            InputStreamReader inputStreamReader = new InputStreamReader(in);
-
-            BufferedReader bufReader = new BufferedReader(inputStreamReader);
-            String line;
-            while ((line = bufReader.readLine()) != null) {
-                //按行读取输入流数据
-                String[] temp = line.split(",");
-                //读取数据
-                allData.add(new float[]{new Float(temp[0]), new Float(temp[1])});
-            }
-
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void saveData(int data){
         int length=allData.size();
@@ -450,23 +306,19 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
         if (data != null) {
 
             ILineDataSet set = data.getDataSetByIndex(0);
-            // set.addEntry(...); // can be called as well
-
             if (set == null) {
                 set = createSet();
                 data.addDataSet(set);
             }
-
+            Log.i("addEntry", "count:"+count);
             //在450个数据之后开始删除已经没有显示在折线图范围的数据 后面的数据还是从右向左出现  当然也可以不用删除，这样可以滑动折线图浏览以前的数据
-            if (i > 450) {
-
-                set.removeFirst();
-                data.addEntry(new Entry(allData.get(index)[0], (float) allData.get(index)[1]), 0);
-            } else {
-
-                data.addEntry(new Entry(allData.get(index)[0], (float) allData.get(index)[1]), 0);
-            }
-            i++;
+//            if (count > 45) {
+//                set.removeFirst();
+//                data.addEntry( new Entry((float) allData.get(index)[0], (float) allData.get(index)[1]), 0);
+//            } else {
+                data.addEntry(new Entry((float) allData.get(index)[0], (float) allData.get(index)[1]), 0);
+//            }
+            count++;
             index++;
             data.notifyDataChanged();
 
@@ -474,10 +326,49 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
             mLineChart.notifyDataSetChanged();
 
             // 折线图最多显示的数量
-            mLineChart.setVisibleXRangeMaximum(450);
+//            mLineChart.setVisibleXRangeMaximum(45);
             mLineChart.moveViewToX(data.getEntryCount());
         }
     }
+//    public void addEntry(float yValue){
+//        LineData data=mLineChart.getLineData();
+//
+//        // 每一个LineDataSet代表一条线，每张统计图表可以同时存在若干个统计折线，这些折线像数组一样从0开始下标。
+//        // 本例只有一个，那么就是第0条折线
+//        ILineDataSet dataSet=data.getDataSetByIndex(0);
+//
+//        // 如果该统计折线图还没有数据集，则创建一条出来，如果有则跳过此处代码。
+//        if (dataSet==null){
+//            dataSet= createSet();
+//            data.addDataSet(dataSet);
+//        }
+//
+//        // 先添加一个x坐标轴的值
+//        // 因为是从0开始，data.getXValCount()每次返回的总是全部x坐标轴上总数量，所以不必多此一举的加1
+////        data.addXValue(data.getXValCount()+"");
+////        data.addXValue(xValue);
+////        data.a
+//        //如果异常则为红色
+//
+//
+//        // set.getEntryCount()获得的是所有统计图表上的数据点总量，
+//        // 如从0开始一样的数组下标，那么不必多次一举的加1
+//        Entry entry=new Entry(yValue,dataSet.getEntryCount());
+//        // 往linedata里面添加点。注意：addentry的第二个参数即代表折线的下标索引。
+//        // 因为本例只有一个统计折线，那么就是第一个，其下标为0.
+//        // 如果同一张统计图表中存在若干条统计折线，那么必须分清是针对哪一条（依据下标索引）统计折线添加。
+//        data.addEntry(entry,0);
+//
+//        // 像ListView那样的通知数据更新
+//        mLineChart.notifyDataSetChanged();
+//
+//        // 当前统计图表中最多在x轴坐标线上显示的总量
+//        mLineChart.setVisibleXRangeMaximum(10);
+//        // 将坐标移动到最新
+//        // 此代码将刷新图表的绘图
+//        mLineChart.moveViewToX(data.getEntryCount()-5);
+//
+//    }
 
 
 }
